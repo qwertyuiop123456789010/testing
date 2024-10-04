@@ -1,0 +1,91 @@
+<ep_1>
+package com.example.gui;
+
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+    float fontSize = 20;  // Initial font size
+    int colorIndex = 0;   // Index for color change
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView textView = findViewById(R.id.textView1);
+        Button btnChangeSize = findViewById(R.id.button1);
+        Button btnChangeColor = findViewById(R.id.button2);
+
+        // Change font size button
+        btnChangeSize.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textView.setTextSize(fontSize);
+                fontSize += 4;  // Increase font size
+                if (fontSize > 40) fontSize = 20;  // Reset to initial size
+            }
+        });
+
+        // Change color button
+        btnChangeColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (colorIndex) {
+                    case 0:
+                        textView.setTextColor(Color.parseColor("#0000FF")); // Blue
+                        break;
+                    case 1:
+                        textView.setTextColor(Color.parseColor("#00FF00")); // Green
+                        break;
+                    case 2:
+                        textView.setTextColor(Color.parseColor("#FF0000")); // Red
+                        break;
+                    case 3:
+                        textView.setTextColor(Color.parseColor("#800000")); // Maroon
+                        break;
+                }
+                colorIndex = (colorIndex + 1) % 4; // Cycle through colors
+            }
+        });
+    }
+}
+
+--------------------------------------------------------------------------------------------------------------------------
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="WELCOME"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Change Font Size" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Change Color" />
+
+</LinearLayout>
+
